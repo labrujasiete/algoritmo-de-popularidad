@@ -236,43 +236,7 @@ Para migrar este sistema:
 ---
 ## 🔄 **9. Diagrama de flujo completo del algoritmo**
 
-Aquí tienes un diseño en markdown para documentación con pasos claros y ordenados:
-
-```
-Inicio
-  │
-  ▼
-Usuario realiza una interacción (like, dislike, comentario, vista)
-  │
-  ▼
-Flutter actualiza engagement en Firestore:
-  - Incrementa contador correspondiente
-  - Actualiza recentInteractionsCount
-  - Actualiza lastInteractionTimestamp
-  │
-  ▼
-(En paralelo, si es comentario: crea documento en colección de comentarios)
-  │
-  ▼
-Scheduler Cloud Function se activa cada X minutos
-  │
-  ▼
-Consulta posts con lastInteractionTimestamp recientes
-  │
-  ▼
-Para cada post:
-  ├─ Calcula interactionScore (suma ponderada de interacciones + base)
-  ├─ Calcula ageInHours
-  ├─ Calcula gravedad
-  ├─ Calcula popularityScore = interactionScore / gravedad
-  ├─ Calcula velocityMultiplier = log10(1 + recentInteractionsCount)
-  ├─ Calcula finalScore = popularityScore * (1 + velocityMultiplier)
-  ├─ Actualiza popularityScore en Firestore
-  └─ Reinicia recentInteractionsCount a 0
-  │
-  ▼
-Fin
-```
+![algoritmo_diagrama](https://github.com/user-attachments/assets/c13a5143-d6ae-4f7c-ad63-eb9754b6c13e)
 
 ---
 
