@@ -236,7 +236,8 @@ Para migrar este sistema:
 ---
 ## 🔄 **9. Diagrama de flujo completo del algoritmo**
 
-![algoritmo_diagrama](https://github.com/user-attachments/assets/c13a5143-d6ae-4f7c-ad63-eb9754b6c13e)
+![diagrama_de_algoritmo_de_popularidad](https://github.com/user-attachments/assets/c28c1c71-f292-4806-bc66-b59fae7ebf23)
+
 
 ---
 
