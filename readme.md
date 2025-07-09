@@ -1,4 +1,4 @@
-# **Algoritmo de Popularidad con Gravedad por Atenuación Temporal**
+# **Algoritmo de Popularidad con Gravedad por Atenuación Temporal (APGAT)**
 ![brain](https://github.com/user-attachments/assets/fa134f37-552e-4b9c-8497-83be67958c68)
 El “Algoritmo de Popularidad con Gravedad por Atenuación Temporal” calcula la relevancia de cada noticia combinando sus interacciones (likes, dislikes, comentarios y vistas) con su antigüedad, de forma que las noticias más nuevas y activas se mantengan arriba, mientras que las viejas pierden visibilidad si no siguen recibiendo interacciones.
 
