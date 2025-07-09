@@ -1,5 +1,7 @@
 # **Algoritmo de Popularidad con Gravedad por Atenuación Temporal**
 
+El “Algoritmo de Popularidad con Gravedad por Atenuación Temporal” calcula la relevancia de cada noticia combinando sus interacciones (likes, dislikes, comentarios y vistas) con su antigüedad, de forma que las noticias más nuevas y activas se mantengan arriba, mientras que las viejas pierden visibilidad si no siguen recibiendo interacciones.
+
 ## 📈 **Reporte Técnico Completo**
 
 **Fecha:** 2025-07-08\
