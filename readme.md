@@ -234,7 +234,52 @@ Para migrar este sistema:
 4. Ajusta pesos y gravedad según comportamiento real de tus usuarios.
 
 ---
-## 🔄 **9. Diagrama de flujo completo del algoritmo**
+
+## ⚖️ **9. Nivel de Dificultad – Algoritmo de Popularidad con Gravedad por Atenuación Temporal**
+
+### 🔧 **Nivel estimado: [ Moderado-Avanzado ]**
+
+### ✅ **Razones principales**
+
+1. **Cloud Functions programadas**
+   - Requiere conocimiento de funciones `onSchedule` en Firebase, deploy con permisos adecuados y gestión de costos.
+
+2. **Optimización de Firestore**
+   - Necesita estructurar la base de datos con índices para consultar posts activos eficientemente.
+
+3. **Diseño correcto de modelos**
+   - Creación y manejo de `PostModel` y `EngagementModel` con campos de engagement y popularidad sincronizados.
+
+4. **Cálculos algorítmicos precisos**
+   - Uso de exponenciales, logaritmos y divisiones por tiempo, evitando errores de redondeo o división por cero.
+
+5. **Integración con Flutter State Management**
+   - Actualizar UI en tiempo real tras likes/comentarios sin lecturas costosas o bloqueos.
+
+---
+
+## 🔬 **Dificultad general (backend tradicional)**
+
+- **Nivel: Medio**
+  - Lógica clara, pero requiere cron jobs bien implementados y queries eficientes para bases de datos grandes.
+
+---
+
+## 💡 **Conclusión**
+
+> No es un algoritmo complicado en su lógica, pero su **implementación completa en Flutter + Firebase exige nivel intermedio-avanzado** en arquitectura de datos, funciones serverless y eficiencia de costos.
+
+---
+
+### 👥 **Recomendación de equipo**
+
+| Rol sugerido | Justificación |
+| ------------ | ------------- |
+| **Mobile Developer (Flutter)** | Para integración de la UI con Firestore y estado. |
+| **Backend Developer / Cloud Engineer** | Para la creación y optimización de Cloud Functions programadas y estructura de base de datos. |
+
+---
+## 🔄 **10. Diagrama de flujo completo del algoritmo**
 
 ![diagrama_de_algoritmo_de_popularidad](https://github.com/user-attachments/assets/c28c1c71-f292-4806-bc66-b59fae7ebf23)
 
