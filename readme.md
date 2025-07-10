@@ -253,8 +253,6 @@ Para migrar este sistema:
 4. **Cálculos algorítmicos precisos**
    - Uso de exponenciales, logaritmos y divisiones por tiempo, evitando errores de redondeo o división por cero.
 
-5. **Integración con Flutter State Management**
-   - Actualizar UI en tiempo real tras likes/comentarios sin lecturas costosas o bloqueos.
 
 ---
 
