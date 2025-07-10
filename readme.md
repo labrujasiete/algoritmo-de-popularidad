@@ -235,7 +235,7 @@ Para migrar este sistema:
 
 ---
 
-## ⚖️ **9. Nivel de Dificultad – Algoritmo de Popularidad con Gravedad por Atenuación Temporal**
+## ⚖️ **9. Nivel de Dificultad**
 
 ### 🔧 **Nivel estimado: [ Moderado-Avanzado ]**
 
