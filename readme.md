@@ -156,43 +156,96 @@ Se ejecuta **cada 10-15 minutos** (ajustable) para:
 
 ---
 
-### 🔸 **Ejemplo de Scheduled Function (resumido)**
+### 🔸 **Ejemplo de Scheduled Cloud Function v2 (resumido)**
 
 ```js
-exports.updatePopularityScores = functions.pubsub
-  .schedule("every 10 minutes")
-  .onRun(async (context) => {
-    const posts = await db.collection("posts")
-      .where("lastInteractionTimestamp", ">", cutoffDate)
-      .get();
+/* eslint-disable */
+const { onSchedule } = require("firebase-functions/v2/scheduler"); // Import v2 scheduler
+const admin = require("firebase-admin");
+
+admin.initializeApp();
+const db = admin.firestore();
+
+// v2 function definition
+exports.updatePopularityScoresAlgorithmV2 = onSchedule({
+    schedule: "every 15 minutes",
+    memory: "512MiB", // Note: The unit is now MiB for v2
+    timeoutSeconds: 300,
+  }, async (event) => {
+    console.log("Starting scheduled popularity calculation task (v2)...");
+
+    // Algorithm parameters (NO CHANGE HERE)
+    const LIKE_WEIGHT = 1.0;
+    const DISLIKE_WEIGHT = 1.0;
+    const COMMENT_WEIGHT = 2.5;
+    const VIEW_WEIGHT = 0.1;
+    const BASE_SCORE = 1.0;
+    const GRAVITY = 1.8;
+
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+
+    const query = db
+      .collection("posts")
+      .where("lastInteractionTimestamp", ">", fifteenMinutesAgo);
+
+    const activePostsSnapshot = await query.get();
+
+    if (activePostsSnapshot.empty) {
+      console.log("No active posts to update. Task completed.");
+      return null;
+    }
+
+    console.log(`Found ${activePostsSnapshot.size} active posts to process.`);
 
     const batch = db.batch();
-    posts.forEach(doc => {
-      const data = doc.data();
-      const engagement = data.engagement;
+
+    // The entire logic of your function remains IDENTICAL
+    activePostsSnapshot.forEach((doc) => {
+      const post = doc.data();
+      const engagement = post.engagement || {};
 
       const interactionScore =
-        engagement.likesPositiveCount * 1 +
-        engagement.likesNegativeCount * 1 +
-        engagement.commentsCount * 2.5 +
-        engagement.viewsCount * 0.1 +
-        1; // BASE_SCORE
+        (engagement.likesPositiveCount || 0) * LIKE_WEIGHT +
+        (engagement.likesNegativeCount || 0) * DISLIKE_WEIGHT +
+        (engagement.commentsCount || 0) * COMMENT_WEIGHT +
+        (engagement.viewsCount || 0) * VIEW_WEIGHT +
+        BASE_SCORE;
 
-      const ageInHours = (Date.now() - data.timestamp.toDate().getTime()) / 3600000;
-      const gravity = Math.pow(ageInHours + 2, 1.8);
-      const popularityScore = interactionScore / gravity;
+      if (!post.timestamp) {
+        console.log(`Post missing timestamp: ${doc.id}`);
+        return;
+      }
 
-      const velocityMultiplier = Math.log10(1 + engagement.recentInteractionsCount);
+      const publicationTimestamp = post.timestamp.toDate();
+      const ageInHours =
+        (Date.now() - publicationTimestamp.getTime()) / 3600000;
+
+      const gravityDenominator = Math.pow(ageInHours + 2, GRAVITY);
+      const popularityScore = interactionScore / gravityDenominator;
+
+      const recentInteractions = engagement.recentInteractionsCount || 0;
+      const velocityMultiplier = Math.log10(1 + recentInteractions);
+
       const finalScore = popularityScore * (1 + velocityMultiplier);
 
       batch.update(doc.ref, {
         popularityScore: finalScore,
-        "engagement.recentInteractionsCount": 0
+        "engagement.recentInteractionsCount": 0,
       });
     });
 
-    await batch.commit();
-  });
+    try {
+      await batch.commit();
+      console.log(
+        `Successfully updated popularity scores for ${activePostsSnapshot.size} posts.`
+      );
+    } catch (error) {
+      console.error("Error executing batch update:", error);
+    }
+
+    return null;
+  }
+);
 ```
 
 ---
