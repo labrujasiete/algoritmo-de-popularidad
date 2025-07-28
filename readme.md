@@ -118,27 +118,27 @@ class EngagementModel {
 
 #### 🔸 **Like**
 
-- Agrega su `userId` al array `positiveStance` o `negativeStance`.
-- Incrementa `likesPositiveCount` o `likesNegativeCount` en engagement.
-- Incrementa `recentInteractionsCount`.
-- Actualiza `lastInteractionTimestamp`.
+- 1.1 - Agrega su `userId` al array `positiveStance` o `negativeStance`.
+- 1.2 - Incrementa `likesPositiveCount` o `likesNegativeCount` en engagement.
+- 1.3 - Incrementa `recentInteractionsCount`.
+- 1.4 - Actualiza `lastInteractionTimestamp`.
 
 ---
 
 #### 🔸 **Comentario**
 
-- Crea documento de comentario en colección aparte.
-- Incrementa `commentsCount` en engagement.
-- Incrementa `recentInteractionsCount`.
-- Actualiza `lastInteractionTimestamp`.
+- 2.1 - Crea documento de comentario en colección aparte.
+- 2.2 - Incrementa `commentsCount` en engagement.
+- 2.3 - Incrementa `recentInteractionsCount`.
+- 2.4 - Actualiza `lastInteractionTimestamp`.
 
 ---
 
 #### 🔸 **Vista**
 
-- Incrementa `viewsCount` en engagement.
-- Incrementa `recentInteractionsCount`.
-- Actualiza `lastInteractionTimestamp`.
+- 3.1 - Incrementa `viewsCount` en engagement.
+- 3.2 - Incrementa `recentInteractionsCount`.
+- 3.3 - Actualiza `lastInteractionTimestamp`.
 
 ---
 
